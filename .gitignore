@@ -1,3 +1,6 @@
+# #Firebase
+# android/app/google-servises.json
+# ios/Runner/GoogleService-Info.plist
 # Miscellaneous
 *.class
 *.log

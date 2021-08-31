@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/components/cons_height_width.dart';
@@ -6,8 +8,12 @@ import 'package:tutor_finder/components/mytext.dart';
 import 'package:tutor_finder/components/mytext2.dart';
 import 'package:tutor_finder/components/mytext_monserrat.dart';
 import 'package:tutor_finder/components/rounded_button.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -89,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         fontsize: 12,
                         textAlign: TextAlign.justify,
                         text:
-                            'You are at the right place. Hire the perfect teacher for your children today. We will provide you experienceed and well mannered teacher for your children at your area.',
+                            'You are at the right place. Hire the perfect teacher for your children today. We will provide you experienced and well mannered teacher for your children at your area.',
                       ),
                       s10,
                       RoundedButton(
@@ -117,6 +123,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         text: 'Become a Tutor',
                         color: loginbtn1,
                         fontSize: 15,
+                        press: () {
+                          FirebaseFirestore.instance
+                              .collection('testing')
+                              .add({'timestamp': Timestamp.now()});
+                        },
                       ),
                       s5,
                       InkWell(
