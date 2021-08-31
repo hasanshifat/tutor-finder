@@ -9,6 +9,8 @@ import 'package:tutor_finder/components/mytext2.dart';
 import 'package:tutor_finder/components/mytext_monserrat.dart';
 import 'package:tutor_finder/components/rounded_button.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:tutor_finder/pageRoutes.dart';
+import 'package:tutor_finder/screens/teacher_ui/registration_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,9 +27,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          //primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: Colors.white,
+          visualDensity: VisualDensity.adaptivePlatformDensity),
       home: MyHomePage(),
+      routes: routes,
     );
   }
 }
@@ -102,6 +106,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         text: 'Hire a Tutor',
                         color: loginbtn3,
                         fontSize: 15,
+                        press: () => Navigator.pushNamed(
+                            context, TeacherSignRegPage.routeName),
                       ),
                       s10,
                       Mytext2(
