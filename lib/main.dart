@@ -1,7 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/components/cons_height_width.dart';
 import 'package:tutor_finder/components/mytext.dart';
@@ -10,6 +10,8 @@ import 'package:tutor_finder/components/mytext_monserrat.dart';
 import 'package:tutor_finder/components/rounded_button.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tutor_finder/pageRoutes.dart';
+import 'package:tutor_finder/provider/user_details.dart';
+import 'package:tutor_finder/screens/login_page.dart';
 import 'package:tutor_finder/screens/teacher_ui/registration_page.dart';
 
 Future<void> main() async {
@@ -23,21 +25,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-          appBarTheme: AppBarTheme(
-            color: Colors.white,
-            elevation: 0,
-            brightness: Brightness.light,
-            iconTheme: IconThemeData(color: Colors.black87),
-          ),
-          //primarySwatch: Colors.blue,
-          scaffoldBackgroundColor: Colors.white,
-          visualDensity: VisualDensity.adaptivePlatformDensity),
-      home: MyHomePage(),
-      routes: routes,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<UserDetails>.value(
+          value: UserDetails(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+            appBarTheme: AppBarTheme(
+              color: Colors.white,
+              elevation: 0,
+              brightness: Brightness.light,
+              iconTheme: IconThemeData(color: Colors.black87),
+            ),
+            //primarySwatch: Colors.blue,
+            scaffoldBackgroundColor: Colors.white,
+            visualDensity: VisualDensity.adaptivePlatformDensity),
+        home: MyHomePage(),
+        routes: routes,
+      ),
     );
   }
 }
@@ -112,8 +121,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         text: 'Hire a Tutor',
                         color: loginbtn3,
                         fontSize: 15,
-                        press: () => Navigator.pushNamed(
-                            context, TeacherSignRegPage.routeName),
                       ),
                       s10,
                       Mytext2(
@@ -135,14 +142,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         text: 'Become a Tutor',
                         color: loginbtn1,
                         fontSize: 15,
-                        press: () {
-                          FirebaseFirestore.instance
-                              .collection('testing')
-                              .add({'timestamp': Timestamp.now()});
-                        },
+                        press: () => Navigator.pushNamed(
+                            context, TeacherSignRegPage.routeName),
                       ),
                       s5,
                       InkWell(
+                        onTap: () => Navigator.pushNamed(
+                            context, TeacherLoginPage.routeName),
                         child: Mytext(
                           text: 'Click here to Sign In',
                           decoration: TextDecoration.underline,

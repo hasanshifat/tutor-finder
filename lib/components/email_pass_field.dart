@@ -44,7 +44,9 @@ class EmailPassField extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 0.08,
+      margin: EdgeInsets.all(12),
+      // height: size.height * 0.08,
+      // width: size.width * .85,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
       ),
@@ -64,31 +66,36 @@ class EmailPassField extends StatelessWidget {
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
           labelText: labelText,
-          filled: true,
+          filled: false,
           fillColor: fillColor,
           hintText: hintText,
-          border: InputBorder.none,
+          //  border: InputBorder.none,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: new BorderSide(
+                color: color3,
+              )),
           errorText: errorText,
-          disabledBorder: OutlineInputBorder(
-              gapPadding: 10,
-              borderRadius: BorderRadius.circular(8),
-              borderSide: new BorderSide(color: color3)),
-          enabledBorder: OutlineInputBorder(
-              gapPadding: 10,
-              borderRadius: BorderRadius.circular(8),
-              borderSide: new BorderSide(color: color3)),
-          focusedBorder: OutlineInputBorder(
-              gapPadding: 10,
-              borderRadius: BorderRadius.circular(8),
-              borderSide: new BorderSide(color: color3)),
-          errorBorder: OutlineInputBorder(
-              gapPadding: 10,
-              borderRadius: BorderRadius.circular(8),
-              borderSide: new BorderSide(color: Colors.red)),
-          focusedErrorBorder: OutlineInputBorder(
-              gapPadding: 10,
-              borderRadius: BorderRadius.circular(8),
-              borderSide: new BorderSide(color: Colors.red)),
+          // disabledBorder: OutlineInputBorder(
+          //     gapPadding: 10,
+          //     borderRadius: BorderRadius.circular(8),
+          //     borderSide: new BorderSide(color: color3)),
+          // enabledBorder: OutlineInputBorder(
+          //     gapPadding: 10,
+          //     borderRadius: BorderRadius.circular(8),
+          //     borderSide: new BorderSide(color: color3)),
+          // focusedBorder: OutlineInputBorder(
+          //     gapPadding: 10,
+          //     borderRadius: BorderRadius.circular(8),
+          //     borderSide: new BorderSide(color: color3)),
+          // errorBorder: OutlineInputBorder(
+          //     gapPadding: 10,
+          //     borderRadius: BorderRadius.circular(8),
+          //     borderSide: new BorderSide(color: Colors.red)),
+          // focusedErrorBorder: OutlineInputBorder(
+          //     gapPadding: 10,
+          //     borderRadius: BorderRadius.circular(8),
+          //     borderSide: new BorderSide(color: Colors.red)),
         ),
       ),
     );
