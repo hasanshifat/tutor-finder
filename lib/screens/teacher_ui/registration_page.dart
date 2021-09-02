@@ -4,9 +4,11 @@ import 'package:tutor_finder/components/appBar.dart';
 import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/components/cons_height_width.dart';
 import 'package:tutor_finder/components/email_pass_field.dart';
+import 'package:tutor_finder/components/mytext.dart';
 import 'package:tutor_finder/components/mytext2.dart';
 import 'package:tutor_finder/components/mytext_monserrat.dart';
 import 'package:tutor_finder/components/rounded_button.dart';
+import 'package:tutor_finder/components/snackbar.dart';
 
 class TeacherSignRegPage extends StatefulWidget {
   static String routeName = "/techer_registration_page";
@@ -27,6 +29,7 @@ class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
   final List<String> errors = [];
   bool obscuretexts = true;
   bool obscuretextsPassConf = true;
+  bool checkBoxValue = false;
   String email;
   String pass;
   String radioValue;
@@ -321,10 +324,46 @@ class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
                                       });
                                     }),
                               ),
+                              s10,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: Row(
+                                  children: [
+                                    Checkbox(
+                                        checkColor: colorwhite,
+                                        activeColor: loginbtn1,
+                                        value: checkBoxValue,
+                                        onChanged: (val) {
+                                          setState(() {
+                                            checkBoxValue = !checkBoxValue;
+                                          });
+                                        }),
+                                    Mytext2(
+                                      text: 'I agree to the',
+                                      fontsize: 10,
+                                      color: colorblack87,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    InkWell(
+                                      //onTap: () => Navigator.pushNamed(
+                                      // context, TeacherLoginPage.routeName),
+                                      child: Mytext(
+                                        text: 'Terms & Conditions',
+                                        decoration: TextDecoration.underline,
+                                        color: loginbtn1,
+                                        fontsize: 10,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              )
                             ],
                           ),
                         ),
-                        s10,
                       ],
                     ),
                   )),
@@ -345,8 +384,17 @@ class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
                     if (!_formkey.currentState.validate()) {
                       return;
                     }
+                    if (radioValue == null) {
+                      CustomSnakbar.snackbar(
+                          context, 'Please select your gender');
+                    }
+                    if (checkBoxValue == false) {
+                      CustomSnakbar.snackbar(
+                          context, 'Please select the agreement');
+                    }
                     _formkey.currentState.save();
                     print(email);
+                    print(radioValue);
                   });
                 })
           ],
