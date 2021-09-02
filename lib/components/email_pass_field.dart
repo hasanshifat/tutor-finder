@@ -42,7 +42,7 @@ class EmailPassField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.all(12),
       // height: size.height * 0.08,

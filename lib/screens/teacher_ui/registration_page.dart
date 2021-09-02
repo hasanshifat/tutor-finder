@@ -6,7 +6,6 @@ import 'package:tutor_finder/components/cons_height_width.dart';
 import 'package:tutor_finder/components/email_pass_field.dart';
 import 'package:tutor_finder/components/mytext.dart';
 import 'package:tutor_finder/components/mytext2.dart';
-import 'package:tutor_finder/components/mytext_monserrat.dart';
 import 'package:tutor_finder/components/rounded_button.dart';
 import 'package:tutor_finder/components/snackbar.dart';
 
@@ -59,11 +58,12 @@ class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: appBar(context, 'Register as Tutor'),
+        backgroundColor: colorgreylite[100],
         body: SafeArea(
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Container(
-              color: Colors.white,
+              color: colorgreylite[100],
               child: Form(
                   key: _formkey,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -75,7 +75,7 @@ class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
                           // height: size.height * 1,
                           width: size.width * 1,
                           decoration: BoxDecoration(
-                              color: colorgreylite[100],
+                              color: colorwhite,
                               borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             children: [
@@ -169,6 +169,7 @@ class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
                                             value: 'Male',
                                             groupValue: radioValue,
                                             onChanged: handleRadioValueChange1,
+                                            activeColor: loginbtn1,
                                           ),
                                           Container(
                                             height: 25,
@@ -193,6 +194,7 @@ class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
                                             value: 'Female',
                                             groupValue: radioValue,
                                             onChanged: handleRadioValueChange1,
+                                            activeColor: loginbtn1,
                                           ),
                                           Container(
                                             height: 25,
