@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:tutor_finder/classes/teacher_classes/store_signUp_userData_class_firebase.dart';
 import 'package:tutor_finder/components/appBar.dart';
 import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/components/cons_height_width.dart';
@@ -8,6 +11,8 @@ import 'package:tutor_finder/components/mytext.dart';
 import 'package:tutor_finder/components/mytext2.dart';
 import 'package:tutor_finder/components/rounded_button.dart';
 import 'package:tutor_finder/components/snackbar.dart';
+import 'package:tutor_finder/dialogs/allDialogs.dart';
+import 'package:tutor_finder/provider/user_details.dart';
 
 class TeacherSignRegPage extends StatefulWidget {
   static String routeName = "/techer_registration_page";
@@ -18,6 +23,7 @@ class TeacherSignRegPage extends StatefulWidget {
 }
 
 class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
   final textName = TextEditingController();
   final textEmail = TextEditingController();
   final textPassword = TextEditingController();
@@ -50,6 +56,40 @@ class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
   void handleRadioValueChange1(String value) {
     setState(() {
       radioValue = value;
+    });
+  }
+
+  //Sign up method
+  Future signUp() async {
+    Dialogs().waiting(context, 'Registering...');
+    final UserDetails userDetails =
+        Provider.of<UserDetails>(context, listen: false);
+
+    auth
+        .createUserWithEmailAndPassword(
+            email: textEmail.text, password: textConfirmPassword.text)
+        .then((user) {
+      print(user);
+      print(user.user.uid);
+      setState(() {
+        userDetails.dataUserID(user.user.uid);
+        userDetails.dataUserEmail(textEmail.text);
+        userDetails.dataUserName(textName.text);
+        userDetails.dataPhoneNumber(phoneNumber.text);
+        userDetails.dataUserPAssword(textConfirmPassword.text);
+      });
+      print(userDetails.userId.toString());
+      String u = userDetails.userId.toString();
+      if (u != null) {
+        UserSignDataAdding().storeNewUSerData(context, radioValue);
+      }
+      // if (user != null) {
+      //   user.user.updateProfile(displayName: userDetails.userName.toString());
+      // }
+    }).catchError((onError) {
+      var a = onError.message;
+
+      Dialogs().error(context, a);
     });
   }
 
@@ -388,13 +428,21 @@ class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
                     }
                     if (radioValue == null) {
                       CustomSnakbar.snackbar(
-                          context, 'Please select your gender');
+                          context,
+                          'Please select your gender',
+                          Colors.red[600],
+                          colorwhite);
                     }
                     if (checkBoxValue == false) {
                       CustomSnakbar.snackbar(
-                          context, 'Please select the agreement');
+                          context,
+                          'Please select the agreement',
+                          Colors.red[600],
+                          colorwhite);
+                    } else {
+                      _formkey.currentState.save();
+                      signUp();
                     }
-                    _formkey.currentState.save();
                     print(email);
                     print(radioValue);
                   });

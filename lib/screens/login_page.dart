@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tutor_finder/classes/teacher_classes/t_profile_class.dart';
 import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/components/cons_height_width.dart';
 import 'package:tutor_finder/components/email_pass_field.dart';
@@ -19,6 +21,11 @@ class TeacherLoginPage extends StatefulWidget {
 
 class _TeacherLoginPageState extends State<TeacherLoginPage> {
   final FirebaseAuth auth = FirebaseAuth.instance;
+  CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('usersData');
+  Stream collectionStream =
+      FirebaseFirestore.instance.collection('usersData').snapshots();
+
   final textEmail = TextEditingController();
   final textPassword = TextEditingController();
   final FocusNode passNode = FocusNode();
@@ -27,11 +34,48 @@ class _TeacherLoginPageState extends State<TeacherLoginPage> {
   bool obscuretexts = true;
   String email;
   String pass;
+  List<TeacherProfile> profilelist = [];
   @override
   void dispose() {
     textEmail.dispose();
     textPassword.dispose();
     super.dispose();
+  }
+
+  Future login() async {
+    final UserDetails userDetails =
+        Provider.of<UserDetails>(context, listen: false);
+    //loadSnackBAr(context, 'Loading');
+    Dialogs().waiting(context, 'Logging in...');
+
+    auth.signInWithEmailAndPassword(email: email, password: pass).then((user) {
+      // print(user);
+      print(user.user.uid);
+      print(user.additionalUserInfo.isNewUser);
+
+      if (user.user.uid != null) {
+        //  _scaffoldKey.currentState.hideCurrentSnackBar();
+        //UserGetData().getUserInfo(context);
+        setState(() {
+          userDetails.dataUserID(user.user.uid);
+        });
+
+        Navigator.pushNamed(context, TeacherDashBoard.routeName)
+            .then((value) => Navigator.pop(context))
+            .catchError((error) {
+          print(error);
+          return Dialogs().error(context, error);
+        });
+      } else if (user.user.uid == null) {
+        return Dialogs().error(context, 'Please Sign Up first!');
+      } else {
+        //return loadSnackBAr(context, 'Loading');
+      }
+    }).catchError((onError) {
+      var a = onError.message;
+
+      Dialogs().error(context, a);
+    });
   }
 
   @override
@@ -89,7 +133,7 @@ class _TeacherLoginPageState extends State<TeacherLoginPage> {
                         if (val.isEmpty) {
                           return "Please enter your password";
                         }
-                        if (val.length < 7) {
+                        if (val.length < 8) {
                           return 'Password should contain 8 characters';
                         }
 
@@ -140,40 +184,5 @@ class _TeacherLoginPageState extends State<TeacherLoginPage> {
         ),
       ),
     );
-  }
-
-  Future login() async {
-    final UserDetails userDetails =
-        Provider.of<UserDetails>(context, listen: false);
-    //loadSnackBAr(context, 'Loading');
-    Dialogs().waiting(context, 'Logging in');
-
-    auth.signInWithEmailAndPassword(email: email, password: pass).then((user) {
-      // print(user);
-      print(user.user.uid);
-      print(user.additionalUserInfo.isNewUser);
-
-      if (user.user.uid != null) {
-        //  _scaffoldKey.currentState.hideCurrentSnackBar();
-        //UserGetData().getUserInfo(context);
-        setState(() {
-          userDetails.dataUserID(user.user.uid);
-        });
-        Navigator.pushNamed(context, TeacherDashBoard.routeName)
-            .then((value) => Navigator.pop(context))
-            .catchError((error) {
-          print(error);
-          return Dialogs().error(context, error);
-        });
-      } else if (user.user.uid == null) {
-        return Dialogs().error(context, 'Please Sign Up first!');
-      } else {
-        //return loadSnackBAr(context, 'Loading');
-      }
-    }).catchError((onError) {
-      var a = onError.message;
-
-      Dialogs().error(context, a);
-    });
   }
 }

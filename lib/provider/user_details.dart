@@ -3,10 +3,11 @@ import 'package:flutter/foundation.dart';
 
 class UserDetails extends ChangeNotifier {
   var userName;
-  var salesPersonName1;
+  var userEmail;
   var userId;
   var phoneNumber;
   var userRole;
+  var userPassword;
 
   dataUserName(var username) {
     userName = username;
@@ -22,9 +23,18 @@ class UserDetails extends ChangeNotifier {
     userRole = userrole;
     notifyListeners();
   }
-  
+
   dataPhoneNumber(var phonenumber) {
     phoneNumber = phonenumber;
+    notifyListeners();
+  }
+
+  dataUserEmail(var useremail) {
+    userEmail = useremail;
+    notifyListeners();
+  }
+  dataUserPAssword(var userpassword) {
+    userPassword = userpassword;
     notifyListeners();
   }
 }
