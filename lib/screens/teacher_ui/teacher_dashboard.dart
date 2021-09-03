@@ -3,12 +3,14 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/components/cons_height_width.dart';
 import 'package:tutor_finder/components/mytext.dart';
 import 'package:tutor_finder/components/mytext2.dart';
+import 'package:tutor_finder/components/mytext_monserrat.dart';
 import 'package:tutor_finder/components/rounded_button.dart';
 import 'package:tutor_finder/main.dart';
 import 'package:tutor_finder/provider/user_details.dart';
@@ -66,7 +68,7 @@ class _TeacherDashBoardState extends State<TeacherDashBoard> {
     });
   }
 
-  jobSectionBody(
+  Widget jobSectionBody(
       String nmber, String text, Color txtclr, Color bgclr, Color imgclr) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
@@ -96,7 +98,7 @@ class _TeacherDashBoardState extends State<TeacherDashBoard> {
             text: '$text',
             color: color2,
             fontsize: 12,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
           )
         ],
       ),
@@ -109,6 +111,20 @@ class _TeacherDashBoardState extends State<TeacherDashBoard> {
         Provider.of<UserDetails>(context, listen: false);
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: colorgreylite[100],
+        backwardsCompatibility: false,
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: colorgreylite[100],
+            statusBarIconBrightness: Brightness.dark),
+        title: MytextMontserrat(
+          text: 'Tutor Finder',
+          fontsize: 18,
+          color: colorblack87,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       body: SafeArea(
         child: Container(
           height: size.height * 1,
@@ -120,11 +136,9 @@ class _TeacherDashBoardState extends State<TeacherDashBoard> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  s10,
-                  s10,
                   Container(
-                    height: size.height * .2,
-                    width: size.width * 0.9,
+                    height: size.height * .18,
+                    width: size.width * 1,
                     decoration: BoxDecoration(
                         color: colorwhite,
                         borderRadius: BorderRadius.circular(8)),
