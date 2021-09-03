@@ -7,8 +7,9 @@ AppBar appBar(context, String title) {
   return AppBar(
     backgroundColor: colorgreylite[100],
     backwardsCompatibility: false,
-    systemOverlayStyle:
-        SystemUiOverlayStyle(statusBarColor: colorgreylite[100]),
+    systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: colorgreylite[100],
+        statusBarIconBrightness: Brightness.dark),
     leading: IconButton(
       icon: Icon(Icons.arrow_back, color: Colors.black),
       onPressed: () => Navigator.of(context).pop(),

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/components/cons_height_width.dart';
 import 'package:tutor_finder/components/mytext.dart';
+import 'package:tutor_finder/components/mytext2.dart';
 import 'package:tutor_finder/components/rounded_button.dart';
 import 'package:tutor_finder/main.dart';
 import 'package:tutor_finder/provider/user_details.dart';
@@ -65,6 +66,43 @@ class _TeacherDashBoardState extends State<TeacherDashBoard> {
     });
   }
 
+  jobSectionBody(
+      String nmber, String text, Color txtclr, Color bgclr, Color imgclr) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            maxRadius: 30,
+            backgroundColor: bgclr.withOpacity(0.1),
+            child: SizedBox(
+              height: 30,
+              width: 30,
+              child: SvgPicture.asset(
+                'assets/images/briefcase.svg', //briefcase
+                color: imgclr,
+              ),
+            ),
+          ),
+          Mytext(
+            text: '$nmber',
+            color: txtclr,
+            fontsize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+          Mytext2(
+            text: '$text',
+            color: color2,
+            fontsize: 12,
+            fontWeight: FontWeight.w500,
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final UserDetails userDetails =
@@ -77,48 +115,80 @@ class _TeacherDashBoardState extends State<TeacherDashBoard> {
           width: size.width * 1,
           color: colorgreylite[100],
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                s10,
-                s10,
-                CircleAvatar(
-                  maxRadius: 30,
-                  backgroundColor: Colors.white,
-                  child: ClipOval(
-                    child: img == null
-                        ? SvgPicture.asset('assets/images/boy.svg')
-                        : Image.memory(
-                            base64Decode(img),
-                            width: 60,
-                            height: 60,
-                            fit: BoxFit.cover,
-                          ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  s10,
+                  s10,
+                  Container(
+                    height: size.height * .2,
+                    width: size.width * 0.9,
+                    decoration: BoxDecoration(
+                        color: colorwhite,
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        jobSectionBody('1230', 'Live Jobs', loginbtn1,
+                            loginbtn1.withOpacity(0.1), loginbtn1),
+                        VerticalDivider(
+                          color: colorblack87,
+                        ),
+                        jobSectionBody(
+                            '1010',
+                            'New Jobs',
+                            Color(0xff66DE93),
+                            Color(0xff66DE93).withOpacity(0.2),
+                            Color(0xff66DE93)),
+                        VerticalDivider(
+                          color: colorblack87,
+                        ),
+                        jobSectionBody('110', 'Your Jobs', colorblack87,
+                            colorgreylite, colorblack),
+                      ],
+                    ),
                   ),
-                ),
-                s10,
-                Mytext(
-                  text: '${userDetails.userId.toString()}',
-                  color: colorblack87,
-                ),
-                Mytext(
-                  text: '${userDetails.phoneNumber.toString()}',
-                  color: colorblack87,
-                ),
-                Mytext(
-                  text: '${userDetails.userName.toString()}',
-                  color: colorblack87,
-                ),
-                RoundedButton(
-                  text: 'Sign Out',
-                  color: Colors.red,
-                  press: () {
-                    auth.signOut().then((value) {
-                      Navigator.pushNamed(context, MyHomePage.routeName);
-                    });
-                  },
-                )
-              ],
+                  s10,
+                  CircleAvatar(
+                    maxRadius: 30,
+                    backgroundColor: Colors.white,
+                    child: ClipOval(
+                      child: img == null
+                          ? SvgPicture.asset('assets/images/boy.svg')
+                          : Image.memory(
+                              base64Decode(img),
+                              width: 60,
+                              height: 60,
+                              fit: BoxFit.cover,
+                            ),
+                    ),
+                  ),
+                  s10,
+                  Mytext(
+                    text: '${userDetails.userId.toString()}',
+                    color: colorblack87,
+                  ),
+                  Mytext(
+                    text: '${userDetails.phoneNumber.toString()}',
+                    color: colorblack87,
+                  ),
+                  Mytext(
+                    text: '${userDetails.userName.toString()}',
+                    color: colorblack87,
+                  ),
+                  RoundedButton(
+                    text: 'Sign Out',
+                    color: Colors.red,
+                    press: () {
+                      auth.signOut().then((value) {
+                        Navigator.pushNamed(context, MyHomePage.routeName);
+                      });
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         ),
