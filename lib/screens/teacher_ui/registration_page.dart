@@ -184,7 +184,7 @@ class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
                               ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
+                                    const EdgeInsets.symmetric(horizontal: 13),
                                 child: Row(
                                   children: [
                                     Mytext2(
