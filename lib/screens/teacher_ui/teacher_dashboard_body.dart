@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -113,20 +112,16 @@ class _TeacherDashBoardBodyState extends State<TeacherDashBoardBody> {
             color: loginbtn1.withOpacity(0.1),
             borderRadius: BorderRadius.circular(8)),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(width: 5),
-            CircleAvatar(
-              maxRadius: 25,
-              backgroundColor: Colors.transparent,
-              child: SizedBox(
-                height: 25,
-                width: 25,
-                child: SvgPicture.asset(
-                  'assets/images/$img.svg', //briefcase
-                  color: colorblack87,
-                  fit: BoxFit.fill,
-                ),
+            SizedBox(width: 10),
+            Container(
+              //color: loginbtn3,
+              height: 35,
+              width: 35,
+              child: SvgPicture.asset(
+                'assets/images/$img.svg', //briefcase
+                color: colorblack87,
+                fit: BoxFit.fill,
               ),
             ),
             SizedBox(width: 10),
@@ -206,15 +201,14 @@ class _TeacherDashBoardBodyState extends State<TeacherDashBoardBody> {
 
   @override
   Widget build(BuildContext context) {
-    
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: colorgreylite[100],
+        backgroundColor: colorwhite,
         backwardsCompatibility: false,
         systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: colorgreylite[100],
+            statusBarColor: colorwhite,
             statusBarIconBrightness: Brightness.dark),
         title: MytextMontserrat(
           text: 'Tutor Finder',
@@ -227,7 +221,7 @@ class _TeacherDashBoardBodyState extends State<TeacherDashBoardBody> {
         child: Container(
           height: size.height * 1,
           width: size.width * 1,
-          color: colorgreylite[100],
+          color: Colors.white70,
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -240,8 +234,16 @@ class _TeacherDashBoardBodyState extends State<TeacherDashBoardBody> {
                     height: size.height * .18,
                     width: size.width * 1,
                     decoration: BoxDecoration(
-                        color: colorwhite,
-                        borderRadius: BorderRadius.circular(8)),
+                      color: colorwhite,
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black87.withOpacity(0.5),
+
+                          // changes position of shadow
+                        ),
+                      ],
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -341,7 +343,6 @@ class _TeacherDashBoardBodyState extends State<TeacherDashBoardBody> {
                     ],
                   ),
                   s10,
-                 
                 ],
               ),
             ),

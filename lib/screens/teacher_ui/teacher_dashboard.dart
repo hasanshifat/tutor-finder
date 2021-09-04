@@ -7,7 +7,6 @@ import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/provider/user_details.dart';
 import 'package:tutor_finder/screens/teacher_ui/more_settings.dart';
 import 'package:tutor_finder/screens/teacher_ui/teacher_dashboard_body.dart';
-
 import 'package:tutor_finder/screens/teacher_ui/teacher_profile.dart';
 
 class TeacherDashBoard extends StatefulWidget {
@@ -21,7 +20,7 @@ class TeacherDashBoard extends StatefulWidget {
 class _TeacherDashBoardState extends State<TeacherDashBoard> {
   @override
   void initState() {
-   // getUserInfo(context);
+    // getUserInfo(context);
     super.initState();
   }
 
@@ -76,8 +75,8 @@ class _TeacherDashBoardState extends State<TeacherDashBoard> {
     return Scaffold(
       body: pagelist[pageInndex],
       bottomNavigationBar: BottomNavigationBar(
-          elevation: 1,
-          backgroundColor: colorgreylite[100],
+          elevation: 2,
+          backgroundColor: colorwhite,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: loginbtn1,
           currentIndex: pageInndex,

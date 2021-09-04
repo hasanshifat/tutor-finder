@@ -5,11 +5,11 @@ import 'package:tutor_finder/components/mytext_monserrat.dart';
 
 AppBar appBar(context, String title) {
   return AppBar(
-    backgroundColor: colorgreylite[100],
+    automaticallyImplyLeading: false,
+    backgroundColor: colorwhite,
     backwardsCompatibility: false,
     systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: colorgreylite[100],
-        statusBarIconBrightness: Brightness.dark),
+        statusBarColor: colorwhite, statusBarIconBrightness: Brightness.dark),
     leading: IconButton(
       icon: Icon(Icons.arrow_back, color: Colors.black),
       onPressed: () => Navigator.of(context).pop(),
@@ -20,6 +20,6 @@ AppBar appBar(context, String title) {
       color: colorblack87,
       fontWeight: FontWeight.w500,
     ),
-    centerTitle: true,
+    //centerTitle: true,
   );
 }
