@@ -27,7 +27,7 @@ class UserSignDataAdding {
       'name': userDetails.userName.toString(),
       'email': userDetails.userEmail.toString(),
       'number': userDetails.phoneNumber.toString(),
-      'profile_pic': '',
+      'profile_pic': 'N/A',
       'gender': gender,
       'creation_time': Timestamp.now(),
 

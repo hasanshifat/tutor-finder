@@ -8,6 +8,7 @@ class UserDetails extends ChangeNotifier {
   var phoneNumber;
   var userRole;
   var userPassword;
+  var profilePic;
 
   dataUserName(var username) {
     userName = username;
@@ -35,6 +36,10 @@ class UserDetails extends ChangeNotifier {
   }
   dataUserPAssword(var userpassword) {
     userPassword = userpassword;
+    notifyListeners();
+  }
+  dataUserProfilePic(var propic) {
+    profilePic = propic;
     notifyListeners();
   }
 }
