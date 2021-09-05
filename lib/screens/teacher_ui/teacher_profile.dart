@@ -67,6 +67,15 @@ class _TeacherProfileState extends State<TeacherProfile> {
     });
   }
 
+  List<String> list = [
+    'Personal',
+    'Address',
+    'Career',
+    'Education',
+    'Exp',
+    'Language'
+  ];
+
   @override
   Widget build(BuildContext context) {
     final UserDetails userDetails =
@@ -131,6 +140,10 @@ class _TeacherProfileState extends State<TeacherProfile> {
                 ),
               ),
               s10,
+              s5,
+              Divider(
+                color: colorgreylite,
+              ),
               Mytext(
                 text: '${userDetails.userId.toString()}',
                 color: colorblack87,

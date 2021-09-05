@@ -106,44 +106,36 @@ class _TeacherDashBoardBodyState extends State<TeacherDashBoardBody> {
     return Padding(
       padding: const EdgeInsets.only(right: 10),
       child: Container(
-        height: size.height * .1,
-        width: size.width * 0.6,
-        decoration: BoxDecoration(
-            color: loginbtn1.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8)),
-        child: Row(
-          children: [
-            SizedBox(width: 10),
-            Container(
-              //color: loginbtn3,
-              height: 35,
-              width: 35,
-              child: SvgPicture.asset(
-                'assets/images/$img.svg', //briefcase
-                color: colorblack87,
-                fit: BoxFit.fill,
+          //height: size.height * .1,
+          width: size.width * 0.6,
+          decoration: BoxDecoration(
+              color: loginbtn1.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8)),
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: Colors.transparent,
+              child: SizedBox(
+                height: 30,
+                width: 30,
+                child: SvgPicture.asset(
+                  'assets/images/$img.svg', //briefcase
+                  color: colorblack87,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
-            SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Mytext(
-                  text: 'Chemistry',
-                  color: colorblack87,
-                  fontsize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-                Mytext2(
-                  text: '50 active jobs',
-                  color: colorblack87,
-                  fontsize: 12,
-                )
-              ],
-            )
-          ],
-        ),
-      ),
+            title: Mytext(
+              text: 'Chemistry',
+              color: colorblack87,
+              fontsize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+            subtitle: Mytext2(
+              text: '50 active jobs',
+              color: colorblack87,
+              fontsize: 12,
+            ),
+          )),
     );
   }
 
@@ -152,46 +144,34 @@ class _TeacherDashBoardBodyState extends State<TeacherDashBoardBody> {
     return Padding(
       padding: const EdgeInsets.only(right: 10),
       child: Container(
-        height: size.height * .1,
         width: size.width * 0.6,
         decoration: BoxDecoration(
             color: color5.withOpacity(0.25),
             borderRadius: BorderRadius.circular(8)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(width: 5),
-            CircleAvatar(
-              maxRadius: 25,
-              backgroundColor: Colors.transparent,
-              child: SizedBox(
-                height: 25,
-                width: 25,
-                child: SvgPicture.asset(
-                  'assets/images/$img.svg', //briefcase
-                  color: colorblack87,
-                  fit: BoxFit.fill,
-                ),
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.transparent,
+            child: SizedBox(
+              height: 30,
+              width: 30,
+              child: SvgPicture.asset(
+                'assets/images/$img.svg', //briefcase
+                color: colorblack87,
+                fit: BoxFit.fill,
               ),
             ),
-            SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Mytext(
-                  text: 'Chemistry',
-                  color: colorblack87,
-                  fontsize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-                Mytext2(
-                  text: '50 active jobs',
-                  color: colorblack87,
-                  fontsize: 12,
-                )
-              ],
-            )
-          ],
+          ),
+          title: Mytext(
+            text: 'Chemistry',
+            color: colorblack87,
+            fontsize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+          subtitle: Mytext2(
+            text: '50 active jobs',
+            color: colorblack87,
+            fontsize: 12,
+          ),
         ),
       ),
     );

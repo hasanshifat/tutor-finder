@@ -91,7 +91,7 @@ class _TeacherLoginPageState extends State<TeacherLoginPage> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            color: colorgreylite[100],
+            color: colorwhite,
             child: Form(
                 key: _formkey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
