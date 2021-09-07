@@ -16,9 +16,9 @@ AppBar appBar(context, String title) {
     ),
     title: MytextMontserrat(
       text: title,
-      fontsize: 20,
+      fontsize: 15,
       color: colorblack87,
-      fontWeight: FontWeight.w500,
+      //fontWeight: FontWeight.w500,
     ),
     //centerTitle: true,
   );

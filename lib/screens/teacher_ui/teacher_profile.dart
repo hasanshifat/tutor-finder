@@ -1,9 +1,7 @@
-import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_finder/classes/teacher_classes/user_data_items_catg.dart';
 import 'package:tutor_finder/components/appBar.dart';
@@ -25,8 +23,8 @@ class TeacherProfile extends StatefulWidget {
 class _TeacherProfileState extends State<TeacherProfile> {
   @override
   void initState() {
-    final UserDetails userDetails =
-        Provider.of<UserDetails>(context, listen: false);
+    // final UserDetails userDetails =
+    //     Provider.of<UserDetails>(context, listen: false);
     setState(() {
       userDataCatg[0].click = true;
       body = PersonalData();

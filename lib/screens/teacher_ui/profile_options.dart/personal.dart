@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/components/mytext.dart';
-import 'package:tutor_finder/components/mytext_monserrat.dart';
-import 'package:tutor_finder/provider/user_details.dart';
 
 class PersonalData extends StatelessWidget {
   const PersonalData({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final UserDetails userDetails =
-        Provider.of<UserDetails>(context, listen: false);
+    // final UserDetails userDetails =
+    //     Provider.of<UserDetails>(context, listen: false);
     return Container(
       child: Table(
         columnWidths: {

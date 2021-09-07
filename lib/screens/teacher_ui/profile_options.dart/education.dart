@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/screens/teacher_ui/profile_options.dart/education_add_page.dart';
@@ -10,6 +12,36 @@ class Education extends StatefulWidget {
 }
 
 class _EducationState extends State<Education> {
+  @override
+  void initState() {
+    super.initState();
+    getUserInfo(context);
+  }
+
+  var firebaseUser = FirebaseAuth.instance.currentUser;
+  CollectionReference usersData =
+      FirebaseFirestore.instance.collection('/usersData');
+  Future getUserInfo(context) async {
+    print('calledd');
+    // firestoreInstance.collection("usersData").get().then((querySnapshot) {
+    //   querySnapshot.docs.forEach((result) {
+    //     print(result.data());
+    //   });
+    // });
+    // final UserDetails userDetails =
+    //     Provider.of<UserDetails>(context, listen: false);
+
+    usersData
+        .doc(firebaseUser.uid)
+        .collection('education')
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        print(doc["institute"]);
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

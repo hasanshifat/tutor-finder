@@ -32,7 +32,7 @@ class RoundedInputField extends StatelessWidget {
     return Container(
       // height: 40,
       decoration: BoxDecoration(
-        color: colorgreylite.withOpacity(0.1),
+        color: color,
         borderRadius: BorderRadius.circular(8),
       ),
       child: TextFormField(
@@ -42,17 +42,31 @@ class RoundedInputField extends StatelessWidget {
         controller: controlerText,
         obscureText: obscureText,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(left: 20),
-            filled: true,
-            fillColor: colorgreylite.withOpacity(0.1),
-            hintText: hintText,
-            border: InputBorder.none
-            // border: OutlineInputBorder(
-            //     borderRadius: BorderRadius.circular(8),
-            //     borderSide: new BorderSide(
-            //       color: colorgreylite.withOpacity(0.1),
-            //     )),
-            ),
+          contentPadding: EdgeInsets.only(left: 20),
+          filled: true,
+          fillColor: colorgreylite.withOpacity(0.1),
+          hintText: hintText,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: new BorderSide(
+                color: colorgreylite.withOpacity(0.1),
+              )),
+          // enabledBorder: OutlineInputBorder(
+          //     borderRadius: BorderRadius.circular(8),
+          //     borderSide: new BorderSide(
+          //       color: Colors.transparent,
+          //     )),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: new BorderSide(
+                color: colorgreylite.withOpacity(0.1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: new BorderSide(
+                color: colorgreylite.withOpacity(0.1),
+              )),
+        ),
       ),
     );
   }
