@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tutor_finder/classes/teacher_classes/profile_details/grad_deatils_class.dart';
 import 'package:tutor_finder/components/colors.dart';
+import 'package:tutor_finder/components/cons_height_width.dart';
+import 'package:tutor_finder/components/mytext.dart';
 import 'package:tutor_finder/screens/teacher_ui/profile_options.dart/education_add_page.dart';
 
 class Education extends StatefulWidget {
@@ -21,6 +25,8 @@ class _EducationState extends State<Education> {
   var firebaseUser = FirebaseAuth.instance.currentUser;
   CollectionReference usersData =
       FirebaseFirestore.instance.collection('/usersData');
+
+  List<GradClass> gradList = [];
   Future getUserInfo(context) async {
     print('calledd');
     // firestoreInstance.collection("usersData").get().then((querySnapshot) {
@@ -37,7 +43,15 @@ class _EducationState extends State<Education> {
         .get()
         .then((QuerySnapshot querySnapshot) {
       querySnapshot.docs.forEach((doc) {
-        print(doc["institute"]);
+        setState(() {
+          gradList.add(GradClass(
+              institute: doc["institute"],
+              degree: doc["degree"],
+              fos: doc["fos"],
+              cgpa: doc["cgpa"],
+              startDt: doc["startdate"],
+              endDt: doc["enddate"]));
+        });
       });
     });
   }
@@ -80,6 +94,54 @@ class _EducationState extends State<Education> {
                   Spacer(),
                 ],
               ),
+            ),
+          ),
+          s10,
+          Container(
+            width: size.width * 1,
+            height: size.height * 0.4,
+            child: ListView.builder(
+              itemCount: gradList.length,
+              itemBuilder: (context, i) {
+                return Column(
+                  children: [
+                    ListTile(
+                      leading: CircleAvatar(
+                        maxRadius: 25,
+                        backgroundColor: loginbtn1.withOpacity(0.1),
+                        child: SizedBox(
+                          width: 25,
+                          height: 25,
+                          child: SvgPicture.asset(
+                              'assets/images/graduation cap.svg'),
+                        ),
+                      ),
+                      title: Mytext(
+                        text: gradList[i].institute,
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Mytext(
+                            text: '${gradList[i].degree},${gradList[i].fos}',
+                            fontsize: 12,
+                          ),
+                          Mytext(
+                            text: 'CGPA: ${gradList[i].cgpa}',
+                            fontsize: 12,
+                          ),
+                          Mytext(
+                            text:
+                                'Year: ${gradList[i].startDt}-${gradList[i].endDt}',
+                            fontsize: 12,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider()
+                  ],
+                );
+              },
             ),
           )
         ],

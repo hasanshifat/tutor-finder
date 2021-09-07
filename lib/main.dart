@@ -20,7 +20,7 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -63,18 +63,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     getUserInfo(context);
-    
     super.initState();
   }
+
   var firebaseUser = FirebaseAuth.instance.currentUser;
   final firestoreInstance = FirebaseFirestore.instance;
   Future getUserInfo(context) async {
-    print('calledd');
-    // firestoreInstance.collection("usersData").get().then((querySnapshot) {
-    //   querySnapshot.docs.forEach((result) {
-    //     print(result.data());
-    //   });
-    // });
     final UserDetails userDetails =
         Provider.of<UserDetails>(context, listen: false);
 
@@ -85,19 +79,18 @@ class _MyHomePageState extends State<MyHomePage> {
         .listen((value) {
       if (value != null) {
         setState(() {
-          
           userDetails.dataUserName(value.data()['name']);
           userDetails.dataUserEmail(value.data()['email']);
           userDetails.dataUserID(value.data()['uid']);
           userDetails.dataPhoneNumber(value.data()['number']);
-         // userDetails.dataUserProfilePic(value.data()['profile_pic']);
+          userDetails.dataUserProfilePic(value.data()['profile_pic']);
 
-          
           print(userDetails.userId.toString());
         });
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final UserDetails userDetails =

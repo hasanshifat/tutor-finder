@@ -9,6 +9,8 @@ import 'package:tutor_finder/components/cons_height_width.dart';
 import 'package:tutor_finder/components/mytext.dart';
 import 'package:tutor_finder/components/mytext2.dart';
 import 'package:tutor_finder/components/mytext_monserrat.dart';
+import 'package:tutor_finder/components/rounded_button.dart';
+import 'package:tutor_finder/db_helper/db_helper_main_class.dart';
 import 'package:tutor_finder/provider/user_details.dart';
 
 class TeacherDashBoardBody extends StatefulWidget {
@@ -28,6 +30,7 @@ class _TeacherDashBoardBodyState extends State<TeacherDashBoardBody> {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   final firestoreInstance = FirebaseFirestore.instance;
+  DBHelper dbHelper;
   String img;
   Future getUserInfo(context) async {
     print('calledd');
@@ -323,6 +326,63 @@ class _TeacherDashBoardBodyState extends State<TeacherDashBoardBody> {
                     ],
                   ),
                   s10,
+                  RoundedButton(
+                    text: 'send',
+                    color: loginbtn1,
+                    press: () {
+                      // DivisionModel divisionModel = DivisionModel(
+                      //     division: 'Dhaka',
+                      //     district: 'Dhaka',
+                      //     thana: 'Adabor');
+                      // DBHelper.instance.insertDivisionOrder(divisionModel);
+                      DBHelper.instance.getDivisionAllList().then((value) {
+                        value.forEach((element) {
+                          print(element['thana']);
+                        });
+                      });
+                    },
+                  )
+                  // Card(
+                  //   elevation: 5,
+                  //   child: Container(
+                  //     width: size.width * 1,
+                  //     height: size.height * 0.2,
+                  //     decoration: BoxDecoration(
+                  //         color: colorwhite,
+                  //         // boxShadow: [
+                  //         //   BoxShadow(
+                  //         //     color: Colors.black87.withOpacity(1),
+                  //         //     offset: Offset(0, 0.1),
+                  //         //   ),
+                  //         // ],
+                  //         borderRadius: BorderRadius.only(
+                  //             bottomLeft: Radius.circular(8),
+                  //             bottomRight: Radius.circular(8))),
+                  //     child: Column(
+                  //       children: [
+                  //         Container(
+                  //           width: size.width * 1,
+                  //           height: 20,
+                  //           color: Colors.red,
+                  //           child: Center(
+                  //             child: Mytext(
+                  //               text: 'Important Notice',
+                  //               color: colorwhite,
+                  //               fontWeight: FontWeight.bold,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         Padding(
+                  //           padding: const EdgeInsets.all(5.0),
+                  //           child: Mytext(
+                  //             text:
+                  //                 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry. Lorem Ipsum has been the industry',
+                  //           ),
+                  //         )
+                  //       ],
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),

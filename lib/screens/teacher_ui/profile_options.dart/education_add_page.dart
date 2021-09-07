@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:tutor_finder/classes/teacher_classes/profile_details/education_store.dart';
 import 'package:tutor_finder/components/appBar.dart';
@@ -26,8 +25,6 @@ class _AddEducationState extends State<AddEducation> {
     initializeDateFormatting();
   }
 
-  
-
   DateTime dateTimeTo = DateTime.now();
   DateFormat format = DateFormat.yMMMMd('en_US');
   final institute = TextEditingController();
@@ -48,10 +45,6 @@ class _AddEducationState extends State<AddEducation> {
     'Postgraduate Diploma(PGD)',
     'Diploma',
   ];
-
-  
-
-  
 
   Future startDate(BuildContext context) async {
     Size size = MediaQuery.of(context).size;
@@ -77,6 +70,7 @@ class _AddEducationState extends State<AddEducation> {
         dateTimeTo = picked;
 
         startdate = DateFormat.yMMMMd().format(dateTimeTo);
+        dateTimeTo = null;
         print('toDate $startdate');
       });
     }

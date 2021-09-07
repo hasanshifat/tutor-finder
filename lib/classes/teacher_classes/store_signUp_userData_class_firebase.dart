@@ -29,6 +29,7 @@ class UserSignDataAdding {
       'number': userDetails.phoneNumber.toString(),
       'profile_pic': 'N/A',
       'gender': gender,
+      'account_type': 'student',
       'creation_time': Timestamp.now(),
 
       // 'fcmToken': userDetails.fcmToken.toString(),
