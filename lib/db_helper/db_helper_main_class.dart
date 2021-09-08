@@ -59,8 +59,7 @@ class DBHelper {
     //     await db.rawQuery('SELECT * FROM $tableName'));
 
     //print('all products: $count');
-    var result = await db
-        .rawQuery('SELECT * FROM "division_details" ORDER BY "thana" ASC');
+    var result = await db.rawQuery('SELECT * FROM "division_details"');
     print('result: $result');
     return result;
   }

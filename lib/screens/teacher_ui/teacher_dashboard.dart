@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_finder/components/colors.dart';
@@ -26,9 +27,10 @@ class _TeacherDashBoardState extends State<TeacherDashBoard> {
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   final firestoreInstance = FirebaseFirestore.instance;
+
   String img;
   int pageInndex = 0;
-  List<Widget> pagelist = <Widget>[
+  List pagelist = [
     TeacherDashBoardBody(),
     TeacherProfile(),
     SettingsMore(),
@@ -72,56 +74,68 @@ class _TeacherDashBoardState extends State<TeacherDashBoard> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: pagelist[pageInndex],
-      bottomNavigationBar: BottomNavigationBar(
-          elevation: 2,
-          backgroundColor: colorwhite,
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: loginbtn1,
-          currentIndex: pageInndex,
-          onTap: (val) {
-            setState(() {
-              pageInndex = val;
-            });
-          },
-          items: [
-            BottomNavigationBarItem(
-                icon: SizedBox(
-                    height: 18,
-                    width: 18,
-                    child: SvgPicture.asset(
-                      'assets/images/home.svg',
-                      color: pageInndex == 0 ? loginbtn1 : colorblack87,
-                    )),
-                label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.favorite_outline,
-                  size: 18,
-                ),
-                label: 'Favourite'),
-            BottomNavigationBarItem(
-                icon: SizedBox(
-                    height: 18,
-                    width: 18,
-                    child: SvgPicture.asset('assets/images/briefcase.svg',
-                        color: pageInndex == 2 ? loginbtn1 : colorblack87)),
-                label: 'Jobs'),
-            BottomNavigationBarItem(
-                icon: SizedBox(
-                    height: 18,
-                    width: 18,
-                    child: SvgPicture.asset('assets/images/user.svg',
-                        color: pageInndex == 3 ? loginbtn1 : colorblack87)),
-                label: 'Profile'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.more_horiz,
-                  size: 18,
-                ),
-                label: 'More'),
-          ]),
+    return WillPopScope(
+      onWillPop: () async {
+        if (pageInndex != 0) {
+          setState(() {
+            pageInndex = 0;
+          });
+        } else if (pageInndex == 0) {
+          SystemNavigator.pop();
+        }
+        return false;
+      },
+      child: Scaffold(
+        body: pagelist[pageInndex],
+        bottomNavigationBar: BottomNavigationBar(
+            elevation: 2,
+            backgroundColor: colorwhite,
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: loginbtn1,
+            currentIndex: pageInndex,
+            onTap: (val) {
+              setState(() {
+                pageInndex = val;
+              });
+            },
+            items: [
+              BottomNavigationBarItem(
+                  icon: SizedBox(
+                      height: 18,
+                      width: 18,
+                      child: SvgPicture.asset(
+                        'assets/images/home.svg',
+                        color: pageInndex == 0 ? loginbtn1 : colorblack87,
+                      )),
+                  label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.favorite_outline,
+                    size: 18,
+                  ),
+                  label: 'Favourite'),
+              BottomNavigationBarItem(
+                  icon: SizedBox(
+                      height: 18,
+                      width: 18,
+                      child: SvgPicture.asset('assets/images/briefcase.svg',
+                          color: pageInndex == 2 ? loginbtn1 : colorblack87)),
+                  label: 'Jobs'),
+              BottomNavigationBarItem(
+                  icon: SizedBox(
+                      height: 18,
+                      width: 18,
+                      child: SvgPicture.asset('assets/images/user.svg',
+                          color: pageInndex == 3 ? loginbtn1 : colorblack87)),
+                  label: 'Profile'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.more_horiz,
+                    size: 18,
+                  ),
+                  label: 'More'),
+            ]),
+      ),
     );
   }
 }
