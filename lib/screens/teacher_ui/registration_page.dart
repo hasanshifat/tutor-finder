@@ -11,6 +11,8 @@ import 'package:tutor_finder/components/mytext.dart';
 import 'package:tutor_finder/components/mytext2.dart';
 import 'package:tutor_finder/components/rounded_button.dart';
 import 'package:tutor_finder/components/snackbar.dart';
+import 'package:tutor_finder/db_helper/db_helper_main_class.dart';
+import 'package:tutor_finder/db_helper/div_dis_thana_sync_model.dart';
 import 'package:tutor_finder/dialogs/allDialogs.dart';
 import 'package:tutor_finder/provider/user_details.dart';
 
@@ -77,6 +79,18 @@ class _TeacherSignRegPageState extends State<TeacherSignRegPage> {
         userDetails.dataUserName(textName.text);
         userDetails.dataPhoneNumber(phoneNumber.text);
         userDetails.dataUserPAssword(textConfirmPassword.text);
+        DBHelper.instance.getDivisionAllList().then((value) {
+            print(value.length);
+            if (value.length < 2) {
+              print('need updated');
+              DivDisThnSyndModel().getdata(context);
+            } else if (value.length >= 2) {
+              print('updated');
+              DBHelper.instance
+                  .getDivisionAllList()
+                  .then((value) => print(value.length));
+            }
+          });
       });
       print(userDetails.userId.toString());
       String u = userDetails.userId.toString();

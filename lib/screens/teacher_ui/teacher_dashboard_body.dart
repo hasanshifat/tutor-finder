@@ -9,9 +9,7 @@ import 'package:tutor_finder/components/cons_height_width.dart';
 import 'package:tutor_finder/components/mytext.dart';
 import 'package:tutor_finder/components/mytext2.dart';
 import 'package:tutor_finder/components/mytext_monserrat.dart';
-import 'package:tutor_finder/components/rounded_button.dart';
 import 'package:tutor_finder/db_helper/db_helper_main_class.dart';
-import 'package:tutor_finder/db_helper/division_data_model.dart';
 import 'package:tutor_finder/provider/user_details.dart';
 
 class TeacherDashBoardBody extends StatefulWidget {
@@ -327,21 +325,18 @@ class _TeacherDashBoardBodyState extends State<TeacherDashBoardBody> {
                     ],
                   ),
                   s10,
-                  RoundedButton(
-                    text: 'send',
-                    color: loginbtn1,
-                    press: () {
-                      DivisionModel divisionModel = DivisionModel(
-                          division: 'Dhaka', district: 'Dhaka', thana: 'ramna');
-                      DBHelper.instance.insertDivisionOrder(divisionModel);
-                      // DBHelper.instance.getDivisionAllList().then((value) {
-                      //   value.forEach((element) {
-                      //     print(element.length);
-                      //     print(element['thana']);
-                      //   });
-                      // });
-                    },
-                  )
+                  // RoundedButton(
+                  //   text: 'send',
+                  //   color: loginbtn1,
+                  //   press: () {
+                  //     // DivisionModel divisionModel = DivisionModel(
+                  //     //     division: 'Dhaka', district: 'Dhaka', thana: 'ramna');
+                  //     // DBHelper.instance.insertDivisionOrder(divisionModel);
+                  //     DBHelper.instance.getupper().then((value) {
+                  //       print(value);
+                  //     });
+                  //   },
+                  // )
                   // Card(
                   //   elevation: 5,
                   //   child: Container(

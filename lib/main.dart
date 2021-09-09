@@ -71,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future getUserInfo(context) async {
     final UserDetails userDetails =
         Provider.of<UserDetails>(context, listen: false);
+   
 
     firestoreInstance
         .collection("usersData")
@@ -84,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
           userDetails.dataUserID(value.data()['uid']);
           userDetails.dataPhoneNumber(value.data()['number']);
           userDetails.dataUserProfilePic(value.data()['profile_pic']);
+          
 
           print(userDetails.userId.toString());
         });

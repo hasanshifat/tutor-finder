@@ -31,40 +31,25 @@ class _SettingsMoreState extends State<SettingsMore> {
   StreamSubscription streamSubscription;
 
   getdata() {
-    databaseReference.onValue.listen((event) {
-      setState(() {
-        list2 = event.snapshot.value;
-        for (int i = 0; i < list2.length; i++) {
-          setState(() {
-            list.add(DivDisThClass(
-              id: int.parse(event.snapshot.value[i]['ID']),
-              division: event.snapshot.value[i]['DIVISION'],
-              district: event.snapshot.value[i]['DISTRICT'],
-              thana: event.snapshot.value[i]['THANA'],
-            ));
-          });
-        }
-      });
-
-      //final dataRTDB = DivDisThClass.fromRTDB(data);
-
-      // Map<String, dynamic> data =
-      //     Map<String, dynamic>.from(event.snapshot.value);
-      // data.forEach((key, value) {
-      //   print(data['THANA']);
-      //   setState(() {
-      //     list.add(DivDisThClass(
-      //       id: data['ID'],
-      //       division: data['DIVISION'].toString(),
-      //       district: data['DISTRICT'].toString(),
-      //       thana: data['THANA'].toString(),
-      //     ));
-      //   });
-      // });
+    // databaseReference.onValue.listen((event) {
+    //   setState(() {
+    //     list2 = event.snapshot.value;
+    //     for (int i = 0; i < list2.length; i++) {
+    //       setState(() {
+    //         list.add(DivDisThClass(
+    //           id: int.parse(event.snapshot.value[i]['ID']),
+    //           division: event.snapshot.value[i]['DIVISION'],
+    //           district: event.snapshot.value[i]['DISTRICT'],
+    //           thana: event.snapshot.value[i]['THANA'],
+    //         ));
+    //       });
+    //     }
+    //   });
+    // });
+    DBHelper.instance.getDivision().then((value) {
+      print(value);
     });
   }
-
-  
 
   @override
   void deactivate() {

@@ -12,6 +12,7 @@ import 'package:tutor_finder/components/cons_height_width.dart';
 import 'package:tutor_finder/components/mytext.dart';
 import 'package:tutor_finder/provider/user_details.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:tutor_finder/screens/teacher_ui/profile_options.dart/address_page.dart';
 import 'package:tutor_finder/screens/teacher_ui/profile_options.dart/education.dart';
 import 'package:tutor_finder/screens/teacher_ui/profile_options.dart/personal.dart';
 
@@ -61,7 +62,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
     return Scaffold(
       appBar: appBar(context, 'Profile'),
       body: SafeArea(
-          child: img == 'N/A'
+          child: img == null
               ? Center(
                   child: CircularProgressIndicator(),
                 )
@@ -149,6 +150,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
                                       }
                                       if (i == 1) {
                                         setState(() {
+                                          body = TeacherAddress();
                                           userDataCatg[i].click = true;
                                           userDataCatg[0].click = false;
                                           userDataCatg[2].click = false;

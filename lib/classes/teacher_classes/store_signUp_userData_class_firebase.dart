@@ -30,6 +30,13 @@ class UserSignDataAdding {
       'profile_pic': 'N/A',
       'gender': gender,
       'account_type': 'student',
+      'nationality': 'Bangladeshi',
+      'nid': 'N/A',
+      'religion': 'N/A',
+      'dob': 'N/A',
+      'father name':'N/A',
+      'mother name':'N/A',
+      'maritial status':'N/A',
       'creation_time': Timestamp.now(),
 
       // 'fcmToken': userDetails.fcmToken.toString(),
