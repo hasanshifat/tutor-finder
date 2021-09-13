@@ -32,8 +32,8 @@ class RoundedInputField extends StatelessWidget {
     return Container(
       // height: 40,
       decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10),
+        color: color,
+        borderRadius: BorderRadius.circular(8),
       ),
       child: TextFormField(
         //autofocus: false,
@@ -43,15 +43,29 @@ class RoundedInputField extends StatelessWidget {
         obscureText: obscureText,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 20),
-          suffixIcon: suffixIcon,
-          labelText: labelText,
           filled: true,
-          fillColor: Colors.white,
+          fillColor: colorgreylite.withOpacity(0.1),
           hintText: hintText,
-          border: InputBorder.none,
-          errorText: errorText,
-          enabledBorder:
-              OutlineInputBorder(borderSide: new BorderSide(color: loginbtn1)),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: new BorderSide(
+                color: colorgreylite.withOpacity(0.1),
+              )),
+          // enabledBorder: OutlineInputBorder(
+          //     borderRadius: BorderRadius.circular(8),
+          //     borderSide: new BorderSide(
+          //       color: Colors.transparent,
+          //     )),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: new BorderSide(
+                color: colorgreylite.withOpacity(0.1),
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+              borderSide: new BorderSide(
+                color: colorgreylite.withOpacity(0.1),
+              )),
         ),
       ),
     );

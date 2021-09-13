@@ -15,3 +15,7 @@ const colorgreylite = Colors.grey;
 const loginbtn1 = Color(0xFF00BED6);
 const loginbtn2 = Color(0xFF009FC3);
 const loginbtn3 = Color(0xFF008BB6);
+
+const colorwhite = Colors.white;
+const colorblack = Colors.black;
+const colorblack87 = Colors.black87;
