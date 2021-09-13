@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/provider/user_details.dart';
+import 'package:tutor_finder/screens/problems_page.dart';
 import 'package:tutor_finder/screens/teacher_ui/more_settings.dart';
 import 'package:tutor_finder/screens/teacher_ui/teacher_dashboard_body.dart';
 import 'package:tutor_finder/screens/teacher_ui/teacher_profile.dart';
@@ -32,7 +33,7 @@ class _TeacherDashBoardState extends State<TeacherDashBoard> {
   int pageInndex = 0;
   List pagelist = [
     TeacherDashBoardBody(),
-    TeacherProfile(),
+    Problems(),
     SettingsMore(),
     TeacherProfile(),
     SettingsMore(),
@@ -110,10 +111,10 @@ class _TeacherDashBoardState extends State<TeacherDashBoard> {
                   label: 'Home'),
               BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.favorite_outline,
+                    Icons.assignment,
                     size: 18,
                   ),
-                  label: 'Favourite'),
+                  label: 'Problems'),
               BottomNavigationBarItem(
                   icon: SizedBox(
                       height: 18,
