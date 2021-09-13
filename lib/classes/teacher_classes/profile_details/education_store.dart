@@ -6,7 +6,6 @@ import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/components/snackbar.dart';
 import 'package:tutor_finder/dialogs/allDialogs.dart';
 import 'package:tutor_finder/provider/user_details.dart';
-
 class EducationDataAdding {
   final FirebaseAuth auth = FirebaseAuth.instance;
   CollectionReference usersData =
@@ -27,9 +26,10 @@ class EducationDataAdding {
     }).then((value) {
       CustomSnakbar.snackbar(
           context, 'Updated Successfully', Colors.green, colorwhite);
+      Navigator.pop(context);
     }).catchError((onError) {
       print(onError);
-      Dialogs().error(context, 'SignUp Failed: $onError');
+      Dialogs().error(context, 'Updated Failed: $onError');
     });
   }
 }

@@ -99,9 +99,10 @@ class _EducationState extends State<Education> {
           s10,
           Container(
             width: size.width * 1,
-            height: size.height * 0.4,
+            height: size.height * 0.45,
             child: ListView.builder(
               itemCount: gradList.length,
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, i) {
                 return Column(
                   children: [

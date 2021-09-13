@@ -29,7 +29,7 @@ class UserSignDataAdding {
       'number': userDetails.phoneNumber.toString(),
       'profile_pic': 'N/A',
       'gender': gender,
-      'account_type': 'student',
+      'account_type': 'teacher',
       'nationality': 'Bangladeshi',
       'nid': 'N/A',
       'religion': 'N/A',

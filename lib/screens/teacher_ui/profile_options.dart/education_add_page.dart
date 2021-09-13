@@ -26,7 +26,7 @@ class _AddEducationState extends State<AddEducation> {
   }
 
   DateTime dateTimeTo = DateTime.now();
-   DateTime dateTimeTo2 = DateTime.now();
+  DateTime dateTimeTo2 = DateTime.now();
   DateFormat format = DateFormat.yMMMMd('en_US');
   final institute = TextEditingController();
   final fos = TextEditingController();
@@ -71,7 +71,7 @@ class _AddEducationState extends State<AddEducation> {
         dateTimeTo = picked;
 
         startdate = DateFormat.yMMMMd().format(dateTimeTo);
-       
+
         print('toDate $startdate');
       });
     }
@@ -99,7 +99,7 @@ class _AddEducationState extends State<AddEducation> {
     if (picked != null) {
       setState(() {
         dateTimeTo2 = picked;
-        enddate = DateFormat.yMMMMd().format(dateTimeTo);
+        enddate = DateFormat.yMMMMd().format(dateTimeTo2);
 
         print('toDate $dateTimeTo');
       });
@@ -257,12 +257,10 @@ class _AddEducationState extends State<AddEducation> {
                             'Please add institution name',
                             Colors.red,
                             colorwhite);
-                      }
-                      if (degreeValue == null) {
+                      } else if (degreeValue == null) {
                         CustomSnakbar.snackbar(context,
                             'Please select the degree', Colors.red, colorwhite);
-                      }
-                      if (fos.text.isEmpty) {
+                      } else if (fos.text.isEmpty) {
                         CustomSnakbar.snackbar(
                             context,
                             'Please the field of study',
