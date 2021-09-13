@@ -26,6 +26,7 @@ class _AddEducationState extends State<AddEducation> {
   }
 
   DateTime dateTimeTo = DateTime.now();
+   DateTime dateTimeTo2 = DateTime.now();
   DateFormat format = DateFormat.yMMMMd('en_US');
   final institute = TextEditingController();
   final fos = TextEditingController();
@@ -70,7 +71,7 @@ class _AddEducationState extends State<AddEducation> {
         dateTimeTo = picked;
 
         startdate = DateFormat.yMMMMd().format(dateTimeTo);
-        dateTimeTo = null;
+       
         print('toDate $startdate');
       });
     }
@@ -80,7 +81,7 @@ class _AddEducationState extends State<AddEducation> {
     Size size = MediaQuery.of(context).size;
     final DateTime picked = await showDatePicker(
         context: context,
-        initialDate: dateTimeTo,
+        initialDate: dateTimeTo2,
         firstDate: DateTime(1950),
         lastDate: DateTime(3000),
         builder: (BuildContext context, Widget child) {
@@ -97,7 +98,7 @@ class _AddEducationState extends State<AddEducation> {
         });
     if (picked != null) {
       setState(() {
-        dateTimeTo = picked;
+        dateTimeTo2 = picked;
         enddate = DateFormat.yMMMMd().format(dateTimeTo);
 
         print('toDate $dateTimeTo');

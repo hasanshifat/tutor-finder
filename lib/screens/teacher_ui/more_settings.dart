@@ -28,7 +28,7 @@ class _SettingsMoreState extends State<SettingsMore> {
       FirebaseDatabase.instance.reference().child('div');
   List<DivDisThClass> list = [];
   List<Object> list2 = [];
-  StreamSubscription streamSubscription;
+  //StreamSubscription streamSubscription;
 
   getdata() {
     // databaseReference.onValue.listen((event) {
@@ -51,11 +51,7 @@ class _SettingsMoreState extends State<SettingsMore> {
     });
   }
 
-  @override
-  void deactivate() {
-    streamSubscription.cancel();
-    super.deactivate();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
