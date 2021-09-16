@@ -1,12 +1,13 @@
-class ProblemsClass {
-  String name, uid, qstn, propic, docID;
+class GetANSClass {
+  String name, replyerUID, qstn, propic, docID, ans;
   var time, date;
-  ProblemsClass(
+  GetANSClass(
       {this.name,
       this.qstn,
       this.time,
       this.date,
-      this.uid,
+      this.replyerUID,
+      this.ans,
       this.propic,
       this.docID});
 }
