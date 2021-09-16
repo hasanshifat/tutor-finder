@@ -26,7 +26,7 @@ class _TeacheAddressAddPageState extends State<TeacheAddressAddPage> {
         });
       });
     });
-    super.initState();
+      super.initState();
   }
 
   List divisionList = [];

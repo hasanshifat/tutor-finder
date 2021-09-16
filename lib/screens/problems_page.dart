@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_finder/classes/get_answer_class.dart';
 import 'package:tutor_finder/classes/problems.dart';
 import 'package:tutor_finder/classes/store_answer.dart';
@@ -16,6 +17,7 @@ import 'package:intl/intl.dart';
 import 'package:tutor_finder/components/mytext2.dart';
 import 'package:tutor_finder/components/mytext_monserrat.dart';
 import 'package:tutor_finder/components/rounded_button.dart';
+import 'package:tutor_finder/provider/user_details.dart';
 
 class Problems extends StatefulWidget {
   const Problems({Key key}) : super(key: key);
@@ -73,6 +75,9 @@ class _ProblemsState extends State<Problems> {
   }
 
   Future getAllAnswers(context, docid, ques) async {
+    final UserDetails userDetails =
+        Provider.of<UserDetails>(context, listen: false);
+
     print('Doc id: $docid');
     FirebaseFirestore.instance
         .collection('/problems')
@@ -91,17 +96,47 @@ class _ProblemsState extends State<Problems> {
           var d12 = DateFormat.jm().format(timestamp.toDate());
           var ruid = doc['replyer_uid'];
           var ansrDocId = doc.id;
+          int upvote = 0;
+          int downvote = 0;
+
+          List uv = doc['upvote'];
+          List dv = doc['downvote'];
+          print(uv.length);
+          print(dv.length);
+
+          if (doc['upvote'].toString().contains(userDetails.userId)) {
+            setState(() {
+              upvote += 1;
+            });
+          } else {
+            setState(() {
+              upvote = 0;
+            });
+          }
+          if (doc['downvote'].toString().contains(userDetails.userId)) {
+            setState(() {
+              downvote += 1;
+            });
+          } else {
+            setState(() {
+              downvote = 0;
+            });
+          }
 
           firestoreInstance.doc(ruid).snapshots().listen((event) {
             setState(() {
               getAllANSList.add(GetANSClass(
-                  qstn: ques,
                   time: d12,
                   date: date,
                   ans: doc['answer'],
                   name: event.data()['name'],
+                  upvote: upvote,
+                  downvote: downvote,
+                  totalupvote: uv.length,
+                  totaldownvote: dv.length,
                   propic: event.data()['profile_pic'],
                   docID: ansrDocId));
+              print(getAllANSList[0].upvote);
             });
           });
         });
@@ -112,6 +147,8 @@ class _ProblemsState extends State<Problems> {
           MaterialPageRoute(
             builder: (context) => AnswerDetails(
               getANSList: getAllANSList,
+              docID: docid,
+              ques: ques,
             ),
           ));
     });
@@ -384,7 +421,9 @@ class _WriteAnswerPageState extends State<WriteAnswerPage> {
 
 class AnswerDetails extends StatefulWidget {
   final List<GetANSClass> getANSList;
-  const AnswerDetails({Key key, this.getANSList}) : super(key: key);
+  final docID, ques;
+  const AnswerDetails({Key key, this.getANSList, this.docID, this.ques})
+      : super(key: key);
 
   @override
   _AnswerDetailsState createState() => _AnswerDetailsState();
@@ -402,8 +441,13 @@ class _AnswerDetailsState extends State<AnswerDetails> {
       getANSList.clear();
       getANSList = widget.getANSList;
       isLoading = true;
+      print(widget.docID);
     });
   }
+
+  final db = FirebaseFirestore.instance;
+  CollectionReference problemsData =
+      FirebaseFirestore.instance.collection('/problems');
 
   List<GetANSClass> getANSList = [];
   bool isLoading = false;
@@ -413,88 +457,167 @@ class _AnswerDetailsState extends State<AnswerDetails> {
     return Scaffold(
       appBar: appBar(context, 'Answers'),
       body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: isLoading == false
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : getANSList.length < 1
-                ? Center(
-                    child: Mytext2(
-                      text: 'No answer found',
-                    ),
-                  )
-                : Container(
-                    height: size.height * 1,
-                    width: size.width * 1,
-                    child: ListView.builder(
-                      physics: BouncingScrollPhysics(),
-                      itemCount: getANSList.length,
-                      itemBuilder: (context, i) {
-                        return Column(
-                          children: [
-                            s10,
-                            Mytext2(
-                              text: getANSList[i].qstn,
-                              fontWeight: FontWeight.bold,
-                              fontsize: 20,
+          child: Container(
+              height: size.height * 1,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: isLoading == false
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : getANSList.length < 1
+                        ? Center(
+                            child: Mytext2(
+                              text: 'No answer found',
                             ),
-                            s10,
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 10),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          )
+                        : SingleChildScrollView(
+                            child: Container(
+                              height: size.height * 1,
+                              width: size.width * 1,
+                              child: Column(
                                 children: [
-                                  CircleAvatar(
-                                    maxRadius: 20,
-                                    child: ClipOval(
-                                      child: getANSList[i].propic == 'N/A'
-                                          ? SvgPicture.asset(
-                                              'assets/images/boy.svg')
-                                          : Image.memory(
-                                              base64Decode(
-                                                  getANSList[i].propic),
-                                              width: 50,
-                                              height: 50,
-                                              fit: BoxFit.cover,
+                                  s10,
+                                  Mytext2(
+                                      text: widget.ques,
+                                      fontWeight: FontWeight.bold,
+                                      fontsize: 15),
+                                  Expanded(
+                                    child: ListView.builder(
+                                      physics: BouncingScrollPhysics(),
+                                      itemCount: getANSList.length,
+                                      itemBuilder: (context, i) {
+                                        return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            s10,
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10,
+                                                      horizontal: 10),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  CircleAvatar(
+                                                    maxRadius: 15,
+                                                    child: ClipOval(
+                                                      child: getANSList[i]
+                                                                  .propic ==
+                                                              'N/A'
+                                                          ? SvgPicture.asset(
+                                                              'assets/images/boy.svg')
+                                                          : Image.memory(
+                                                              base64Decode(
+                                                                  getANSList[i]
+                                                                      .propic),
+                                                              width: 50,
+                                                              height: 50,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      MytextMontserrat(
+                                                        text:
+                                                            getANSList[i].name,
+                                                        fontsize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                      Mytext(
+                                                        text:
+                                                            '${getANSList[i].date} at ${getANSList[i].time}',
+                                                        fontsize: 8,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
+                                            Mytext(
+                                              text: '${getANSList[i].ans}',
+                                              fontsize: 15,
+                                            ),
+                                            s10,
+                                            Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: 50,
+                                                ),
+                                                getANSList[i].upvote == 0
+                                                    ? IconButton(
+                                                        icon: FaIcon(
+                                                          FontAwesomeIcons
+                                                              .check,
+                                                          size: 20,
+                                                          color: colorblack87,
+                                                        ),
+                                                        onPressed: () {})
+                                                    : IconButton(
+                                                        icon: FaIcon(
+                                                          FontAwesomeIcons
+                                                              .check,
+                                                          size: 20,
+                                                          color: loginbtn1,
+                                                        ),
+                                                        onPressed: () {}),
+                                                Mytext(
+                                                  text:
+                                                      '${getANSList[i].totalupvote}',
+                                                ),
+                                                Spacer(),
+                                                getANSList[i].downvote == 0
+                                                    ? IconButton(
+                                                        icon: FaIcon(
+                                                          FontAwesomeIcons
+                                                              .times,
+                                                          size: 20,
+                                                          color: colorblack87,
+                                                        ),
+                                                        onPressed: () {})
+                                                    : IconButton(
+                                                        icon: FaIcon(
+                                                          FontAwesomeIcons
+                                                              .times,
+                                                          size: 20,
+                                                          color: Colors.red,
+                                                        ),
+                                                        onPressed: () {}),
+                                                Mytext(
+                                                  text:
+                                                      '${getANSList[i].totaldownvote}',
+                                                ),
+                                                SizedBox(
+                                                  width: 50,
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              width: size.width * 1,
+                                              height: 0.5,
+                                              color:
+                                                  colorgreylite.withOpacity(1),
+                                            ),
+                                          ],
+                                        );
+                                      },
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      MytextMontserrat(
-                                        text: getANSList[i].name,
-                                        fontsize: 15,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      Mytext(
-                                        text:
-                                            '${getANSList[i].date} at ${getANSList[i].time}',
-                                        fontsize: 10,
-                                      ),
-                                    ],
                                   ),
                                 ],
                               ),
                             ),
-                            s10,
-                            Mytext(
-                              text: '${getANSList[i].ans}',
-                              fontsize: 10,
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-      )),
+                          ),
+              ))),
     );
   }
 }

@@ -1,6 +1,9 @@
+
+
 class GetANSClass {
   String name, replyerUID, qstn, propic, docID, ans;
   var time, date;
+  int upvote, downvote, totaldownvote, totalupvote;
   GetANSClass(
       {this.name,
       this.qstn,
@@ -9,5 +12,9 @@ class GetANSClass {
       this.replyerUID,
       this.ans,
       this.propic,
-      this.docID});
+      this.totaldownvote,
+      this.totalupvote,
+      this.docID,
+      this.downvote,
+      this.upvote});
 }

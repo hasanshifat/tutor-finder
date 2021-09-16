@@ -7,7 +7,6 @@ import 'package:tutor_finder/components/colors.dart';
 import 'package:tutor_finder/components/snackbar.dart';
 import 'package:tutor_finder/dialogs/allDialogs.dart';
 import 'package:tutor_finder/provider/user_details.dart';
-import 'package:tutor_finder/screens/teacher_ui/teacher_dashboard.dart';
 
 class AnswerDataAdding {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -17,7 +16,7 @@ class AnswerDataAdding {
   storeAnswerData(context, String ans, docid) {
     final UserDetails userDetails =
         Provider.of<UserDetails>(context, listen: false);
-    final uid = userDetails.userId.toString();
+    //final uid = userDetails.userId.toString();
 
     // final email = userDetails.userEmail.toString();
 
